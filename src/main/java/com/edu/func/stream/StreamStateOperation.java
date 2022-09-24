@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * > parallel() 并行处理
  *
  *  - 区分有状态与无状态操作的目的就行在并行处理的时候，这种有状态被打乱，导致结果不符合预期
- *  - 适用于处理 arrayList, [], HashMap (容易进行任务拆分)
+ *  - 适用于处理 ArrayList, [], HashMap (容易进行任务拆分)
  *  - 不利于 文件读取处理(基础数据源容易发生变化)，
  */
 public class StreamStateOperation {

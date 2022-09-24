@@ -34,9 +34,11 @@ public class WebFluxController {
     // localhost:8080/function/greet
     @Bean
     public RouterFunction<ServerResponse> routes(){
-        return RouterFunctions.route().GET(
+        return RouterFunctions
+            .route()
+            .GET(
                 "function/greet",
                 serverRequest -> ok().bodyValue("hello webflux by functional !!")
-        ).build();
+            ).build();
     }
 }

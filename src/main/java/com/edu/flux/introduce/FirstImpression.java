@@ -1,14 +1,14 @@
 package com.edu.flux.introduce;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Flow;
 import java.util.concurrent.SubmissionPublisher;
 
 /**
- *
  * JDK 9 中 java.util.concurrent.Flow 中也实现了 reactive steam 规范
- *
  */
-
+@Slf4j
 public class FirstImpression {
 
     public static void main(String[] args) {
@@ -34,25 +34,25 @@ public class FirstImpression {
             private Flow.Subscription subscription;
             @Override
             public void onSubscribe(Flow.Subscription subscription) {
-                System.out.println("Subscriber connect Processor successful");
+                log.info("Subscriber connect Processor successful");
                 this.subscription = subscription;
                 this.subscription.request(1);
             }
             @Override
             public void onNext(String item) {
                 // 接收者接收到消息
-                System.out.println("subscriber receiver message:>>"+item+"<<");
+                log.info("subscriber receiver message:>>"+item+"<<");
                 this.subscription.request(1);
             }
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("subscriber receiver error");
-                System.out.println(throwable.getMessage());
+                log.info("subscriber receiver error");
+                log.info(throwable.getMessage());
                 this.subscription.cancel();
             }
             @Override
             public void onComplete() {
-                System.out.println("subscriber receiver over");
+                log.info("subscriber receiver over");
             }
         };
         // 将最终订阅者与处理器之间建立关联
@@ -66,7 +66,7 @@ public class FirstImpression {
 
     // 发布者与订阅者
     public  static  void testReactive(){
-        System.out.println(Flow.defaultBufferSize());
+        log.info("{}", Flow.defaultBufferSize());
         // 创建一个发布者
         SubmissionPublisher submissionPublisher = new SubmissionPublisher();
         // 创建一个订阅者
@@ -75,14 +75,14 @@ public class FirstImpression {
             @Override
             // 第一次初始化完成的时候，确定建立了关系
             public void onSubscribe(Flow.Subscription subscription) {
-                System.out.println("建立订阅关系");
+                log.info("建立订阅关系");
                 this.subscription = subscription;
                 subscription.request(1);
             }
             // 接收数据后的回调
             @Override
             public void onNext(Object item) {
-                System.out.println("接收数据:" + item);
+                log.info("接收数据:" + item);
                 // item 是接收传输数据的本体
                 // 定义接收数据的数量
                 subscription.request(10);
@@ -90,12 +90,12 @@ public class FirstImpression {
             // 订阅中出现接收错误的时候触发
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("发生错误了");
+                log.info("发生错误了");
             }
             // 接收消息完成之后的回调
             @Override
             public void onComplete() {
-                System.out.println("接收到了");
+                log.info("接收到了");
             }
         };
 

@@ -10,11 +10,11 @@ public class StreamExample {
          * 流处理的中间操作
          *  map, flatmap, peek
          *  filter, limit, sorted
-         *  distinct
+         *  distinct,skip
          * -------------------------------------------------------
          * 流终止操作
          *  非短路操作:
-         *      - reduce, foreach, Collect, Max/Min, Count
+         *      - reduce, foreach, Collect,toArray, Max/Min, Count
          *  短路操作:
          *      - FindFirst/FindAny, AnyMatch/AllMatch/NoneMatch
          * -------------------------------------------------------
@@ -24,9 +24,9 @@ public class StreamExample {
          * */
 
         String[] str = {"react","","spring","bo_le","windows","webFlux","bo_le"};
-
-        Stream.of(str)  // 数组转化为流对象
-                // 流处理操作 中间操作,可以是(1-n)次
+        // 数组转化为流对象
+        Stream.of(str)
+                // 流处理操作 中间操作,可以是(0~n)次
                 .filter(i-> !i.isEmpty())  // 去除空元素
                 .distinct()  // 去重
                 .sorted()    // 排序

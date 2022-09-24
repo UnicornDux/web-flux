@@ -20,6 +20,7 @@ public class ReactorDemo {
                 .map(String::toLowerCase)
                 .distinct()
                 .sort()
+                .skip(2) // 去掉空格 / 逗号
                 .subscribe(System.out::print);
     }
 }
