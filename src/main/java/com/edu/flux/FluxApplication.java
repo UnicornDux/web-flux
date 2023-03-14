@@ -8,6 +8,5 @@ public class FluxApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FluxApplication.class, args);
-
     }
 }

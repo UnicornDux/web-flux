@@ -27,6 +27,16 @@ public class TestRegexp {
             b(str);
         }
     }
+    @Test
+    void testRegex(){
+        String name = "金华市金东区光南路OCC10-GJ-POS0600";
+        Pattern pattern = Pattern.compile("(.*?)(\\d+)$");
+        Matcher matcher = pattern.matcher(name);
 
-
+        if (matcher.find()) {
+            System.out.println(matcher.group(0));
+            System.out.println(matcher.group(1));
+            System.out.println(Integer.parseInt(matcher.group(2)));
+        }
+    }
 }
