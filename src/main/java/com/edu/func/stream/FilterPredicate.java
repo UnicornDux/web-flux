@@ -5,6 +5,7 @@ import com.edu.model.Employee;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Stream 的 Filter 谓词逻辑
@@ -45,6 +46,18 @@ public class FilterPredicate {
                 .forEach(System.out::println);
 
     }
+
+
+    public static void takeWhile(){
+
+        List<Integer> collect = Stream.of(1, 2, 4, 36, 23, 5, 6, 6, 22)
+                // 获取满足条件的内容，在一定程度上可以替换 filter 的功能
+                .takeWhile(i -> i < 10)
+                .collect(Collectors.toList());
+        System.out.println(collect);
+
+    }
+
 
     public static Long getAge(Employee e){
         return e.getStrid() == null ? 0L : e.getStrid();

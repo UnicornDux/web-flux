@@ -43,9 +43,11 @@ public class StreamStateOperation {
         List<String> distinct = strList.stream().distinct().collect(Collectors.toList());
         System.out.println(distinct);
 
+        // to list
         List<String> sort = strList.stream().sorted().collect(Collectors.toList());
         System.out.println(sort);
 
+        // group by
         Map<String, Long> collect = strList
             .stream()
             .collect(

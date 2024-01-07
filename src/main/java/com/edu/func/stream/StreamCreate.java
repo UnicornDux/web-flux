@@ -42,16 +42,19 @@ public class StreamCreate {
                 .limit(10).forEach(System.out::println);
 
         // 6. 从文件中读取
-        try {
+        try (Stream<String> str = Files.lines(Paths.get("src/main/property/file.txt"))){
             System.out.println("6: ==========================>>>>>>>>>>");
-            Stream<String> str = Files.lines(Paths.get("src/main/property/file.txt"));
             List<String> sos = str.filter(s -> s.startsWith("M"))
                     .map(String::toUpperCase)
                     .sorted()
                     .collect(Collectors.toList());
             System.out.println(sos);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        // 连接两个流
+        Stream.concat(Stream.of("hello"), Stream.of("world"))
+                .forEach(System.out::println);
+
     }
 }

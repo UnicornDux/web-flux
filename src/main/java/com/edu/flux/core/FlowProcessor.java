@@ -1,4 +1,4 @@
-package com.edu.flux.introduce;
+package com.edu.flux.core;
 
 
 import lombok.extern.slf4j.Slf4j;
