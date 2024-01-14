@@ -139,4 +139,13 @@ public class Api {
                .log()
                .subscribe();
     }
+
+    // 直接获取第一个，后续丢弃
+    public static void next() {
+      Integer val = Flux.just(1, 3, 6)
+        .next()
+        .block();
+      System.out.println(val);
+    }
+
 }
