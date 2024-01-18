@@ -1,13 +1,11 @@
 package com.edu.flux.config;
 
-import com.edu.flux.convert.BookConverter;
+import com.edu.flux.convert.BookWithAuthorConverter;
 import io.r2dbc.spi.ConnectionFactory;
-import jdk.incubator.vector.VectorOperators;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
-import org.springframework.data.r2dbc.convert.R2dbcConverter;
 import org.springframework.data.r2dbc.convert.R2dbcCustomConversions;
 import org.springframework.data.r2dbc.dialect.MySqlDialect;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
@@ -27,6 +25,6 @@ public class R2dbcConfiguration extends AbstractR2dbcConfiguration {
     @ConditionalOnMissingBean
     public R2dbcCustomConversions r2dbcCustomConversions(){
         return R2dbcCustomConversions
-                .of(MySqlDialect.INSTANCE, new BookConverter());
+                .of(MySqlDialect.INSTANCE, new BookWithAuthorConverter());
     }
 }

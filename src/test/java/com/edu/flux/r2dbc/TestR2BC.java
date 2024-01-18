@@ -1,5 +1,7 @@
 package com.edu.flux.r2dbc;
 
+import com.edu.flux.model.AuthWithBooks;
+import com.edu.flux.model.Book;
 import com.edu.flux.model.User;
 import io.asyncer.r2dbc.mysql.MySqlConnectionConfiguration;
 import io.asyncer.r2dbc.mysql.MySqlConnectionFactory;
@@ -15,6 +17,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 public class TestR2BC {
@@ -97,4 +102,35 @@ public class TestR2BC {
                 .subscribe(item -> System.out.println("item = " + item));
         System.in.read();
     }
+
+
+    // 1-N 数据怎么查询（一个作者和它所有书）
+    @Test
+    public void testOneToNQuery() {
+
+
+        databaseClient.sql("")
+                .fetch()
+                .all()
+                .bufferUntilChanged(row -> Long.parseLong(row.get("aid").toString()))
+                .map(list -> {
+                    Map<String,Object> map = list.get(0);
+                    AuthWithBooks user = new AuthWithBooks()
+                            .setId(Long.parseLong(map.get("aid").toString()))
+                            .setName(map.get("username").toString());
+
+                    List<Book> books = list.stream()
+                            .map(ele -> new Book()
+                                .setId(Long.parseLong(ele.get("id").toString()))
+                                .setName(ele.get("name").toString())
+                            ).collect(Collectors.toList());
+
+                    return user.setBooks(books);
+
+                }).subscribe(item -> System.out.println("item = " + item));
+    }
+
+
+
+
 }

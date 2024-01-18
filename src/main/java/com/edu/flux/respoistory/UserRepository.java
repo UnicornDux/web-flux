@@ -1,6 +1,6 @@
 package com.edu.flux.respoistory;
 
-import com.edu.flux.model.Book;
+import com.edu.flux.model.BookWithAuthor;
 import com.edu.flux.model.User;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
@@ -33,7 +33,7 @@ public interface UserRepository extends R2dbcRepository<User, Long> {
     // 这里因为我们关联查询的时候，自动映射的时候，框架不知道 Book 中
     // 不在 book 表中的字段应该要怎么填充字段，需要自定义转换器
     @Query("select b.*, u.username from user u left join book b on b.author = u.id where b.id = :id")
-    Mono<Book> queryBookById(@Param("id")Long id);
+    Mono<BookWithAuthor> queryBookById(@Param("id")Long id);
 
 
 }
